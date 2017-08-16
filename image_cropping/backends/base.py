@@ -3,6 +3,7 @@ import abc
 import six
 
 from django.utils.translation import ugettext as _
+from filebrowser.fields import FileBrowseWidget
 
 from .. import widgets
 
@@ -20,6 +21,7 @@ class ImageBackend(six.with_metaclass(abc.ABCMeta)):
         'hidden': widgets.HiddenImageCropWidget,
         'ImageField': widgets.ImageCropWidget,
         'ImageCropField': widgets.ImageCropWidget,
+        'FileBrowseField': FileBrowseWidget,
     }
 
     def __init__(self, **kwargs):
