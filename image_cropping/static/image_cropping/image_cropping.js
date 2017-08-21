@@ -92,7 +92,7 @@ var image_cropping = (function ($) {
           addClass: ($this.data('size-warning') && ((org_width < min_width) || (org_height < min_height))) ? 'size-warning jcrop-image': 'jcrop-image'
         };
         if ($this.data('ratio')) {
-          options['aspectRatio'] = $this.data('ratio');
+          options['aspectRatio'] = $this.data('ratio')-0.2;
         }
         if ($this.data('box_max_width')) {
           options['boxWidth'] = $this.data('box_max_width');
@@ -114,6 +114,7 @@ var image_cropping = (function ($) {
         var initial;
 
         if ($this.val()) {
+          $this.hide();
           initial = initial_cropping($this.val());
         } else {
 
