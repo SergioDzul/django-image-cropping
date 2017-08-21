@@ -92,7 +92,7 @@ var image_cropping = (function ($) {
           addClass: ($this.data('size-warning') && ((org_width < min_width) || (org_height < min_height))) ? 'size-warning jcrop-image': 'jcrop-image'
         };
         if ($this.data('ratio')) {
-          options['aspectRatio'] = $this.data('ratio')-0.2;
+          options['aspectRatio'] = $this.data('ratio')-0.25;
         }
         if ($this.data('box_max_width')) {
           options['boxWidth'] = $this.data('box_max_width');
