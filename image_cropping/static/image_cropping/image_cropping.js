@@ -57,16 +57,10 @@ var image_cropping = (function ($) {
       var cropping_process = function(){
 
         var image_id = $this.attr('id') + '-image';
-        // debugger;
-
-        // var org_width = $this.data('min-width');
-        // var org_height = $this.data('min-height');
         var org_width = iWidth; // wee need the real width of the picture
         var org_height = iHeight;
         var min_width = $this.data('min-width'), // min is the value defined in model with size
           min_height = $this.data('min-height');
-        console.log('org_width',org_width,'org_height',org_height);
-        console.log('Min',min_width,'Max',min_height);
 
         var is_image_portrait = (org_height > org_width);
         var is_select_portrait = (min_height > min_width);
@@ -91,6 +85,8 @@ var image_cropping = (function ($) {
         var options = {
           minSize: [5, 5],
           keySupport: false,
+          // allowResize: false,
+          allowSelect: false,
           trueSize: [org_width, org_height],
           onSelect: update_selection($this),
           addClass: ($this.data('size-warning') && ((org_width < min_width) || (org_height < min_height))) ? 'size-warning jcrop-image': 'jcrop-image'
@@ -167,6 +163,7 @@ var image_cropping = (function ($) {
               cropping_disabled = true;
             }
           });
+
           $this.parent().find('.jcrop-tracker').mousedown(function(){
             if (cropping_disabled){
               $('#'+label).attr('checked','checked');
@@ -181,7 +178,6 @@ var image_cropping = (function ($) {
         // debugger;
         iWidth = this.width;
         iHeight = this.height;
-        console.log('Picture:::',this.width+' '+this.height);
         cropping_process();
       }
       img.src = '/media/'+$image_input.val();
