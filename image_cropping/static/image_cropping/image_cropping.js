@@ -8,22 +8,6 @@ var image_cropping = (function ($) {
     $('input.image-ratio').each(function(index) {
       var $this = $(this);
 
-
-
-      if($('#loading_gif').length) {
-        var $loading = $('#loading_gif');
-        // $('#' + image_id).Jcrop(options, function(){jcrop[image_id]=this;});
-      }else {
-        var $loading = $('<img>', {
-          'id': 'loading_gif',
-          'src': '/static/image_cropping/images/loading.gif'
-        });
-        // $loading = $loading[0];
-        // $this.append($loading);
-        $this.parent().append($loading);
-      }
-
-
       // find the image field corresponding to this cropping value
       // by stripping the last part of our id and appending the image field name
       var field = $this.attr('name').replace($this.data('my-name'), $this.data('image-field'));
@@ -33,6 +17,15 @@ var image_cropping = (function ($) {
 
       $image_input = $($image_input[0]);
       current = $image_input.val();
+
+
+      if(!$('#loading_gif').length && $image_input.val().length) {
+        var $loading = $('<img>', {
+          'id': 'loading_gif',
+          'src': '/static/image_cropping/images/loading.gif'
+        });
+        $this.parent().append($loading);
+      }
 
 
       $('.fb_show').click(function(){
@@ -58,11 +51,16 @@ var image_cropping = (function ($) {
       });
 
       // skip this image if it's empty and hide the whole field, within admin and by itself
-      /*
-       if (!$image_input.length) {
-       $this.hide().parents('div.form-row:first').hide();
-       return;
-       }*/
+
+      $('#id_cropping').hide();
+      if ($image_input.val().length) {
+        // $this.hide().parents('div.form-row:first').hide();
+        console.log('Esto debe mostrarse');
+        $('.field-cropping').show();
+      }else {
+        console.log('Esto debe ocultarse');
+        $('.field-cropping').hide();
+      }
 
       // check if the image field should be hidden
       /*
