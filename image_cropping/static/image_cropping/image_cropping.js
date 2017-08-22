@@ -8,6 +8,22 @@ var image_cropping = (function ($) {
     $('input.image-ratio').each(function(index) {
       var $this = $(this);
 
+
+
+      if($('#loading_gif').length) {
+        var $loading = $('#loading_gif');
+        // $('#' + image_id).Jcrop(options, function(){jcrop[image_id]=this;});
+      }else {
+        var $loading = $('<img>', {
+          'id': 'loading_gif',
+          'src': '/static/image_cropping/images/loading.gif'
+        });
+        // $loading = $loading[0];
+        // $this.append($loading);
+        $this.parent().append($loading);
+      }
+
+
       // find the image field corresponding to this cropping value
       // by stripping the last part of our id and appending the image field name
       var field = $this.attr('name').replace($this.data('my-name'), $this.data('image-field'));
@@ -76,7 +92,14 @@ var image_cropping = (function ($) {
 
         var $image = $('<img>', {
           'id': image_id,
-          'src': '/media/'+$image_input.val()
+          'src': '/media/'+$image_input.val(),
+          'onLoad': function(){
+            var _self = this;
+            console.log('Loading debe borrarse');
+            $loading.remove();
+            $('#' + image_id).show();
+            // $image[0].show();
+          }
         });
 
         $image = $image[0];
@@ -133,6 +156,7 @@ var image_cropping = (function ($) {
 
         if(!$('#'+image_id).length && $image_input.val() !== '') {
           $this.parent().append($image);
+          $('#' + image_id).hide();
           $('#' + image_id).Jcrop(options, function(){jcrop[image_id]=this;});
         }
 
