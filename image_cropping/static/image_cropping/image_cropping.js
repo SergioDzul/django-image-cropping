@@ -90,9 +90,12 @@ var image_cropping = (function ($) {
 
         var $image = $('<img>', {
           'id': image_id,
+          // 'width': '60%',
+          'height': 'auto',
           'src': '/media/'+$image_input.val(),
           'onLoad': function(){
             var _self = this;
+            $(_self).attr('width', _self.width<800? _self.width:'60%');
             console.log('Loading debe borrarse');
             $loading.remove();
             $('#' + image_id).show();
@@ -199,6 +202,7 @@ var image_cropping = (function ($) {
       var img = new Image();
       img.onload = function() {
         // debugger;
+
         iWidth = this.width;
         iHeight = this.height;
         cropping_process();
